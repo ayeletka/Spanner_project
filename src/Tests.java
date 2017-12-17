@@ -24,6 +24,7 @@ public class Tests {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("***********welcome to R-Spanner test***********\n\n");
 		init();
 		Scanner reader_for_graph_size = new Scanner(System.in);  // Reading from System.in
 		System.out.println("Please choose the size of the graph(number of vertexs): ");
