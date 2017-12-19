@@ -6,12 +6,12 @@ public class Vertex {
 
 
 	public Vertex(int x, int y, int id) {
-		this.x = x;
-		this.y = y;
-		this.id=id;
+		this.x  =  x;
+		this.y  =  y;
+		this.id = id;
 	}
 	public Vertex(int id) {
-		this.id=id;
+		this.id = id;
 	}
 	public int getX(){
 		return this.x;
@@ -23,7 +23,7 @@ public class Vertex {
 		return this.id;
 	}
 	public boolean equals(Vertex v1){
-		return this.id==v1.getID();
+		return this.id == v1.getID();
 	}
 	public String toStringID(){
 		return "V"+this.id;

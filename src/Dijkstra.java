@@ -52,9 +52,7 @@ public class Dijkstra {
                 predecessors.put(target, node);
                 unSettledNodes.add(target);
             }
-            else{
-//            	System.out.println("we are in eles");
-            }
+
         }
 
     }
@@ -135,11 +133,7 @@ public class Dijkstra {
         return path;
     }
     
-//    public int getWeigth(Vertex target) {
-//    	
-//    	return getShortestDistance(target);
-//	}
-    
+
     public int[] getDistanceArrayFromSource()
     {
     	int distance_per_vertex[] = new int[nodes.size()];
