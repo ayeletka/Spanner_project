@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 
 public class Graph {
@@ -91,7 +92,7 @@ public class Graph {
 		}
 		else
 		{
-			throw new RuntimeException("Should not happen2");
+			throw new RuntimeException("Should not happend2");
 		}
 		return weigth;
 	}
@@ -132,5 +133,65 @@ public class Graph {
 		str = str+"} \n";
 		return str;
 	}
+	
+	public ArrayList<Edge> getAllEdgesFromNode(Vertex startNode) {
+		ArrayList<Edge> V_edges = new ArrayList<>();
+		for(int i = 0; i< edges_list.size(); ++i){
+			if(edges_list.get(i).getV1().equals(startNode))
+			{
+				V_edges.add(edges_list.get(i));
+			}
+		}
+		return V_edges;
+	}
+	
+	
+	
+	
+	public ArrayList<Edge> duplicateEdges(){
+		ArrayList<Edge> dup = new ArrayList<>();
+		for(int i = 0; i< edges_list.size(); ++i){
+			Edge d = new Edge(edges_list.get(i).getV2(), edges_list.get(i).getV1(), edges_list.get(i).getWeight());
+			dup.add(d);
+		}
+		return dup;
+		
+	}
+	public ArrayList<Edge> prim(){
+        
+        ArrayList<Edge> mst = new ArrayList<>();
+        PriorityQueue<Edge> pq = new PriorityQueue<>((Object o1, Object o2) -> {
+        	Edge first = (Edge)o1;
+        	Edge second = (Edge)o2;
+            
+            if(first.getWeight()<second.getWeight())return -1;
+            else if(first.getWeight()>second.getWeight())return 1;
+            else return 0;
+        });
+        
+        ArrayList<Edge> edges_list_both_sides = duplicateEdges();
+		for(int i = 0; i< edges_list_both_sides.size(); ++i){
+            pq.add(edges_list_both_sides.get(i));
+        } 
+        
+        boolean[] marked = new boolean[this.getVertexes().size()];
+        marked[0] = true;
+        while(!pq.isEmpty()){
+        	Edge e = pq.peek();
+            
+            pq.poll();
+            if(marked[e.getV1().getID()] && marked[e.getV2().getID()])continue;
+            marked[e.getV1().getID()] = true;  
+            for(Edge edge:this.getAllEdgesFromNode(e.getV2())){
+                if(!marked[edge.getV2().getID()]){
+                    pq.add(edge);  
+                }
+            }
+            marked[e.getV2().getID()] = true; 
+            mst.add(e);
+            
+        }
+        return mst;
+    }
 
 }

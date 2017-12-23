@@ -11,6 +11,7 @@ public class Tests {
 	static double normal_graph_num_of_edges[] = new double[9];
 	static double spanner_graph_num_of_edges[] = new double[9];
 	static double weight_of_normal_graph[] = new double[9];
+	static double weight_of_mst_graph[] = new double[9];
 	static double weight_of_spanner_graph[] = new double[9];
 	
 	public static void init(){
@@ -74,8 +75,12 @@ public class Tests {
 				for(int j = 2;j<max_r_num;j++){
 					weight_of_normal_graph[j] /= counter_for_each_r[j];
 					weight_of_spanner_graph[j] /= counter_for_each_r[j];
+					weight_of_mst_graph[j] /= counter_for_each_r[j];
+
 					System.out.println("Weight of normal graph with factor "+j+" is:"+weight_of_normal_graph[j]);
 					System.out.println("Weight of spanner graph with factor "+j+" is:"+weight_of_spanner_graph[j]);
+					System.out.println("Weight of mst graph with factor "+j+" is:"+weight_of_mst_graph[j]);
+
 				}
 				break;
 			default:
@@ -93,7 +98,7 @@ public class Tests {
 
 	public static void run_spanner(ArrayList<Vertex> V,double p){
 		Random rnd = new Random();
-		for(int i = 1; i <= 10; ++i){
+		for(int i = 1; i <= 1; ++i){
 			ArrayList<Edge> E = new ArrayList<Edge>();//(V.size()*V.size());
 			for (int k = 0; k<V.size(); ++k){
 				for(int c = k+1; c<V.size(); ++c){
@@ -103,13 +108,18 @@ public class Tests {
 			}
 						
 			Graph g = new Graph(V,E);
+			ArrayList<Edge> g_mst_edges = g.prim();
+			Graph g_mst = new Graph(V,g_mst_edges);
+//			System.out.println("graph: "+ g.toString());
+//			System.out.println("mst: "+ g_mst.toString());
 			for(int r = 2; g.getVertexes().size()>Math.pow(2, r); ++r){
 				double stretch_sum = 0, stretch_num_max = 0;
 				int count = 0;
 				Graph spanner_graph = g.getSpannerGraph(r);
-//				System.out.println("j is: "+r);
-//				System.out.println("normal graph: "+g.toString());
-//				System.out.println("spanner graph: "+spanner_graph.toString());
+				System.out.println("j is: "+r);
+				System.out.println("normal graph: "+g.toString());
+				System.out.println("spanner graph: "+spanner_graph.toString());
+				System.out.println("mst graph: "+g_mst.toString());
 
 				for(int c = 0; c<g.getVertexes().size(); ++c){
 					Vertex source  = g.getVertexes().get(c);
@@ -137,6 +147,7 @@ public class Tests {
 				normal_graph_num_of_edges[r] += g.getNumOfEdges();
 				spanner_graph_num_of_edges[r] += spanner_graph.getNumOfEdges();
 				weight_of_normal_graph[r] += g.getGrapgWeight();
+				weight_of_mst_graph[r] += g_mst.getGrapgWeight();
 				weight_of_spanner_graph[r] += spanner_graph.getGrapgWeight();
 			}
 		}
