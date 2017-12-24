@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-public class Tests {
+public class Experiments {
 
 	static int test_number = 1;
 	static double stretch_number_avrage[] = new double[9];
@@ -97,8 +97,9 @@ public class Tests {
 	}
 
 	public static void run_spanner(ArrayList<Vertex> V,double p){
+		System.out.println("p is "+ p);
 		Random rnd = new Random();
-		for(int i = 1; i <= 1; ++i){
+		for(int i = 1; i <= 100; ++i){
 			ArrayList<Edge> E = new ArrayList<Edge>();//(V.size()*V.size());
 			for (int k = 0; k<V.size(); ++k){
 				for(int c = k+1; c<V.size(); ++c){
@@ -116,10 +117,9 @@ public class Tests {
 				double stretch_sum = 0, stretch_num_max = 0;
 				int count = 0;
 				Graph spanner_graph = g.getSpannerGraph(r);
-				System.out.println("j is: "+r);
-				System.out.println("normal graph: "+g.toString());
-				System.out.println("spanner graph: "+spanner_graph.toString());
-				System.out.println("mst graph: "+g_mst.toString());
+//				System.out.println("j is: "+r);
+//				System.out.println("normal graph: "+g.toString());
+//				System.out.println("spanner graph: "+spanner_graph.toString());
 
 				for(int c = 0; c<g.getVertexes().size(); ++c){
 					Vertex source  = g.getVertexes().get(c);
@@ -128,7 +128,7 @@ public class Tests {
 					int distance_Vi_from_source[] =  g.getDijkstra().getDistanceArrayFromSource();
 					int distance_Vi_from_source_spanner_graph[] = spanner_graph.getDijkstra().getDistanceArrayFromSource();
 					for(int k = 0;k<distance_Vi_from_source.length;k++){
-						if(!(distance_Vi_from_source[k]  == 0||distance_Vi_from_source[k] == Integer.MAX_VALUE)){
+						if(!(distance_Vi_from_source[k]  == 0||distance_Vi_from_source[k] == Integer.MAX_VALUE || distance_Vi_from_source_spanner_graph[k]== Integer.MAX_VALUE)){
 //							System.out.println("pathg1[k]/pathg[k]: "+distance_Vi_from_source_spanner_graph[k]+ "/"+ distance_Vi_from_source[k]);
 							double stretch_num = distance_Vi_from_source_spanner_graph[k]/distance_Vi_from_source[k];
 							stretch_sum += stretch_num;
