@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 public class Experiments {
 
-	static int test_number = 1;
 	static double stretch_number_avrage[] = new double[9];
 	static int counter_for_each_r[] = new int[9];
 	static double max[] = new double[9];
@@ -97,7 +96,6 @@ public class Experiments {
 	}
 
 	public static void run_spanner(ArrayList<Vertex> V,double p){
-		System.out.println("p is "+ p);
 		Random rnd = new Random();
 		for(int i = 1; i <= 100; ++i){
 			ArrayList<Edge> E = new ArrayList<Edge>();//(V.size()*V.size());
